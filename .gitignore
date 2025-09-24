@@ -9,6 +9,8 @@ backend/node_modules/
 backend/.node-red/
 backend/.config.json
 backend/.sessions.json
+backend/.npm/
+
 
 # Flutter (frontend)
 frontend/.dart_tool/
