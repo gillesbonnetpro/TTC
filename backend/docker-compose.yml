@@ -2,27 +2,24 @@ version: '3.8'
 
 services:
   mongodb:
-    image: mongo:6.0
+    image: mongo:latest
     container_name: mongodb
-    restart: always
     ports:
       - "27017:27017"
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: motdepassefort
-      MONGO_INITDB_DATABASE: collectionsdb
     volumes:
-      - ./data:/data/db
+      - mongo_data:/data/db
 
-  node-red:
+  nodered:
     image: nodered/node-red:latest
-    container_name: node-red
-    restart: always
+    container_name: nodered
     ports:
       - "1880:1880"
-    environment:
-      - TZ=Europe/Paris
-    volumes:
-      - ./node-red:/data
     depends_on:
       - mongodb
+    volumes:
+      - ./backend:/data
+    environment:
+      - TZ=Europe/Paris
+
+volumes:
+  mongo_data:
