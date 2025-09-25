@@ -18,13 +18,14 @@ services:
     container_name: nodered
     ports:
       - "${NODE_RED_PORT}:1880"
-    environment:
-      - TZ=Europe/Paris
+    env_file:
+      - .env
     volumes:
       - ./data:/data
     depends_on:
       - mongodb
     restart: unless-stopped
+
 
 volumes:
   mongo_data:
