@@ -2,26 +2,27 @@ services:
   mongodb:
     image: mongo:latest
     container_name: mongodb
+    restart: always
     ports:
-      - "27017:27017"
-    volumes:
-      - mongo_data:/data/db
+      - "${MONGO_PORT}:27017"
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
-      - TZ=${TZ}
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_INITDB_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+    volumes:
+      - ./data/mongodb:/data/db
 
   nodered:
     image: nodered/node-red:latest
     container_name: nodered
+    restart: always
     ports:
-      - "1880:1880"
+      - "${NODE_RED_PORT}:1880"
+    environment:
+      - TZ=Europe/Paris
     depends_on:
       - mongodb
     volumes:
-      - ./backend:/data
-    environment:
-      - TZ=${TZ}
+      - nodered_data:/data
 
 volumes:
-  mongo_data:
+  nodered_data:

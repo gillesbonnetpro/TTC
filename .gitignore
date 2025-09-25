@@ -10,6 +10,7 @@ backend/.node-red/
 backend/.config.json
 backend/.sessions.json
 backend/.npm/
+backend/data
 
 
 # Flutter (frontend)
